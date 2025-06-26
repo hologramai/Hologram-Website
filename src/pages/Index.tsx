@@ -3,7 +3,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Sparkles, MessageCircle, Download, Play, Zap, Moon, Sun, Star } from "lucide-react";
-import EmotionWheel from "@/components/EmotionWheel";
+
+import EmotionColorWheel from "@/components/EmotionColorWheel";
+//import EmotionWheel from "@/components/EmotionWheel";
 import TraitCard from "@/components/TraitCard";
 
 const Index = () => {
@@ -68,7 +70,7 @@ const Index = () => {
           <p className="text-xl text-gray-700 mb-12 max-w-3xl mx-auto">
             Shape Eliza's personality with our Victorian-inspired Emotion Wheel. Watch her transform in real-time as you adjust her traits.
           </p>
-          <EmotionWheel />
+          <EmotionColorWheel />
         </div>
       </section>
 
