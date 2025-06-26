@@ -8,57 +8,58 @@ export const calculateWheelPosition = (
   if (!wheelElement) return null;
 
   const rect = wheelElement.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
   
-  const x = event.clientX - centerX;
-  const y = event.clientY - centerY;
+  // Get mouse position relative to wheel center
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+  const x = mouseX - centerX;
+  const y = mouseY - centerY;
   
   // Calculate distance from center
   const distance = Math.sqrt(x * x + y * y);
   const maxRadius = Math.min(rect.width, rect.height) / 2;
   
-  if (distance > maxRadius) return null;
+  // Clamp cursor to circle bounds
+  let clampedX = x;
+  let clampedY = y;
   
-  // Calculate angle
-  let angle = Math.atan2(y, x) * (180 / Math.PI);
+  if (distance > maxRadius) {
+    const angle = Math.atan2(y, x);
+    clampedX = Math.cos(angle) * maxRadius;
+    clampedY = Math.sin(angle) * maxRadius;
+  }
+  
+  // Calculate final distance and intensity
+  const finalDistance = Math.sqrt(clampedX * clampedX + clampedY * clampedY);
+  const intensity = Math.round((finalDistance / maxRadius) * 100);
+  
+  // Calculate angle in degrees (0-360)
+  let angle = Math.atan2(clampedY, clampedX) * (180 / Math.PI);
   if (angle < 0) angle += 360;
   
-  // Calculate intensity based on distance from center (0% at center, 100% at edge)
-  const intensity = Math.round((distance / maxRadius) * 100);
+  // Find the closest emotion
+  let closestEmotion = emotionPairs[0];
+  let minAngleDiff = 360;
   
-  // For free-form blending, calculate blend weights for all emotions
-  const emotionBlends = emotionPairs.map(emotion => {
-    const angleDiff = Math.min(
-      Math.abs(angle - emotion.angle),
-      360 - Math.abs(angle - emotion.angle)
-    );
+  emotionPairs.forEach(emotion => {
+    let angleDiff = Math.abs(angle - emotion.angle);
+    if (angleDiff > 180) angleDiff = 360 - angleDiff;
     
-    // Use a smoother falloff for blending (max influence within 36 degrees)
-    const maxInfluence = 36; // 360 / 10 for smooth blending
-    const weight = Math.max(0, 1 - (angleDiff / maxInfluence));
-    
-    return {
-      emotion,
-      weight,
-      angleDiff
-    };
+    if (angleDiff < minAngleDiff) {
+      minAngleDiff = angleDiff;
+      closestEmotion = emotion;
+    }
   });
   
-  // Find the primary emotion (highest weight)
-  const primaryEmotion = emotionBlends.reduce((max, current) => 
-    current.weight > max.weight ? current : max
-  );
-  
-  // Find secondary emotions for blending
-  const activeBlends = emotionBlends.filter(blend => blend.weight > 0.1);
-  
   return {
-    emotion: primaryEmotion.emotion,
+    emotion: closestEmotion,
     intensity,
-    distance,
+    distance: finalDistance,
     maxRadius,
-    blends: activeBlends,
-    angle
+    angle,
+    x: clampedX,
+    y: clampedY
   };
 };

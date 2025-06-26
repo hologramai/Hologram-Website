@@ -12,4 +12,5 @@ export interface WheelState {
   elizaReaction: string;
   isLocked: boolean;
   isDragging: boolean;
+  cursorPosition: { x: number; y: number } | null;
 }

@@ -11,6 +11,7 @@ interface EmotionWheelProps {
   onMouseMove: (event: React.MouseEvent<HTMLDivElement>) => void;
   onMouseUp: () => void;
   onMouseLeave: () => void;
+  cursorPosition: { x: number; y: number } | null;
 }
 
 const EmotionWheel: React.FC<EmotionWheelProps> = ({
@@ -22,76 +23,115 @@ const EmotionWheel: React.FC<EmotionWheelProps> = ({
   onMouseDown,
   onMouseMove,
   onMouseUp,
-  onMouseLeave
+  onMouseLeave,
+  cursorPosition
 }) => {
+  // Calculate gradient stops for smooth color blending
+  const createGradientStops = () => {
+    const stops: string[] = [];
+    const sortedEmotions = [...emotionPairs].sort((a, b) => a.angle - b.angle);
+    
+    sortedEmotions.forEach((emotion, index) => {
+      const nextEmotion = sortedEmotions[(index + 1) % sortedEmotions.length];
+      const currentAngle = emotion.angle;
+      const nextAngle = index === sortedEmotions.length - 1 ? 360 : nextEmotion.angle;
+      
+      stops.push(`${emotion.color} ${currentAngle}deg`);
+      const midAngle = (currentAngle + nextAngle) / 2;
+      const blendedColor = emotion.color;
+      stops.push(`${blendedColor} ${midAngle}deg`);
+    });
+    
+    return stops.join(', ');
+  };
+
+  const wheelSize = 600;
+  const centerOffset = wheelSize / 2;
+
   return (
     <div className="flex justify-center mb-8">
-      <div 
-        ref={wheelRef}
-        className="relative w-[750px] h-[750px] rounded-full cursor-grab active:cursor-grabbing select-none"
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseLeave}
-        style={{
-          background: `conic-gradient(
-            ${emotionPairs.map(emotion => `${emotion.color} ${emotion.angle}deg`).join(', ')}
-          )`,
-          filter: isLocked ? 'grayscale(50%)' : 'none'
-        }}
-      >
-        {/* Emotion labels */}
+      <div className="relative" style={{ width: wheelSize, height: wheelSize }}>
+        {/* Main wheel */}
+        <div 
+          ref={wheelRef}
+          className="absolute inset-0 rounded-full cursor-crosshair select-none"
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseLeave}
+          style={{
+            background: `conic-gradient(from 0deg, ${createGradientStops()})`,
+            filter: isLocked ? 'grayscale(50%)' : 'none',
+            transition: 'filter 0.3s ease'
+          }}
+        >
+          {/* Center circle */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-inner" />
+        </div>
+
+        {/* Emotion labels - positioned outside the wheel */}
         {emotionPairs.map((emotion) => {
-          const radius = 350; // Increased radius for larger wheel
           const angleRad = (emotion.angle * Math.PI) / 180;
-          const x = Math.cos(angleRad) * radius;
-          const y = Math.sin(angleRad) * radius;
-          const oppositeX = Math.cos(angleRad + Math.PI) * radius;
-          const oppositeY = Math.sin(angleRad + Math.PI) * radius;
+          const labelRadius = centerOffset + 50; // Outside the wheel
+          const x = Math.cos(angleRad) * labelRadius + centerOffset;
+          const y = Math.sin(angleRad) * labelRadius + centerOffset;
+          
+          // Calculate opposite position
+          const oppositeAngleRad = angleRad + Math.PI;
+          const oppositeX = Math.cos(oppositeAngleRad) * labelRadius + centerOffset;
+          const oppositeY = Math.sin(oppositeAngleRad) * labelRadius + centerOffset;
           
           return (
-            <div key={emotion.id}>
-              {/* Primary emotion */}
+            <React.Fragment key={emotion.id}>
+              {/* Primary emotion label */}
               <div
-                className={`absolute transform -translate-x-1/2 -translate-y-1/2 text-sm font-bold text-white bg-black bg-opacity-70 px-3 py-2 rounded-lg pointer-events-none ${
-                  selectedEmotion === emotion.id && intensity > 50 ? 'ring-2 ring-white scale-110' : ''
-                }`}
+                className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 style={{
-                  left: `calc(50% + ${x}px)`,
-                  top: `calc(50% + ${y}px)`,
-                  transition: 'all 0.2s ease'
+                  left: `${x}px`,
+                  top: `${y}px`,
                 }}
               >
-                {emotion.primary}
+                <div
+                  className={`text-sm font-bold text-white bg-gray-700 px-3 py-1.5 rounded-lg whitespace-nowrap ${
+                    selectedEmotion === emotion.id && intensity > 50 ? 'ring-2 ring-white scale-110 bg-gray-900' : ''
+                  }`}
+                  style={{ transition: 'all 0.2s ease' }}
+                >
+                  {emotion.primary}
+                </div>
               </div>
               
-              {/* Opposite emotion */}
+              {/* Opposite emotion label */}
               <div
-                className={`absolute transform -translate-x-1/2 -translate-y-1/2 text-sm font-bold text-white bg-black bg-opacity-70 px-3 py-2 rounded-lg pointer-events-none ${
-                  selectedEmotion === emotion.id && intensity <= 50 ? 'ring-2 ring-white scale-110' : ''
-                }`}
+                className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 style={{
-                  left: `calc(50% + ${oppositeX}px)`,
-                  top: `calc(50% + ${oppositeY}px)`,
-                  transition: 'all 0.2s ease'
+                  left: `${oppositeX}px`,
+                  top: `${oppositeY}px`,
                 }}
               >
-                {emotion.opposite}
+                <div
+                  className={`text-sm font-bold text-white bg-gray-700 px-3 py-1.5 rounded-lg whitespace-nowrap ${
+                    selectedEmotion === emotion.id && intensity <= 50 ? 'ring-2 ring-white scale-110 bg-gray-900' : ''
+                  }`}
+                  style={{ transition: 'all 0.2s ease' }}
+                >
+                  {emotion.opposite}
+                </div>
               </div>
-            </div>
+            </React.Fragment>
           );
         })}
         
-        {/* Current selection indicator */}
-        {selectedEmotion && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div 
-              className="w-8 h-8 bg-white rounded-full shadow-lg border-4 border-gray-800 pointer-events-none"
-              style={{
-                transform: `translate(${Math.cos((emotionPairs.find(e => e.id === selectedEmotion)?.angle || 0) * Math.PI / 180) * (intensity / 100) * 350}px, ${Math.sin((emotionPairs.find(e => e.id === selectedEmotion)?.angle || 0) * Math.PI / 180) * (intensity / 100) * 350}px)`
-              }}
-            />
-          </div>
+        {/* Cursor indicator */}
+        {cursorPosition && (
+          <div 
+            className="absolute w-6 h-6 bg-white rounded-full shadow-lg border-2 border-gray-800 pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
+            style={{
+              left: `${cursorPosition.x + centerOffset}px`,
+              top: `${cursorPosition.y + centerOffset}px`,
+              transition: 'none'
+            }}
+          />
         )}
       </div>
     </div>

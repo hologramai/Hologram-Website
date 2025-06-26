@@ -13,7 +13,8 @@ const EmotionColorWheel = () => {
     intensity: 50,
     elizaReaction: "Click and drag around the wheel to discover my essence...",
     isLocked: false,
-    isDragging: false
+    isDragging: false,
+    cursorPosition: null
   });
 
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -44,50 +45,24 @@ const EmotionColorWheel = () => {
     
     if (!position) return;
     
-    const { emotion, intensity, blends } = position;
+    const { emotion, intensity, x, y } = position;
     
-    // Only update if there's a significant change
-    if (
-      wheelState.selectedEmotion !== emotion.id || 
-      Math.abs(wheelState.intensity - intensity) > 3
-    ) {
-      // Create blended emotion description if multiple emotions are active
-      let emotionDescription = "";
-      let reactionText = "";
-      
-      if (blends && blends.length > 1) {
-        const activeEmotions = blends
-          .filter(blend => blend.weight > 0.2)
-          .sort((a, b) => b.weight - a.weight)
-          .slice(0, 2);
-        
-        if (activeEmotions.length > 1) {
-          const primary = activeEmotions[0];
-          const secondary = activeEmotions[1];
-          
-          const primaryTrait = intensity > 50 ? primary.emotion.primary : primary.emotion.opposite;
-          const secondaryTrait = intensity > 50 ? secondary.emotion.primary : secondary.emotion.opposite;
-          
-          emotionDescription = `${primaryTrait} + ${secondaryTrait}`;
-          reactionText = `I'm feeling a blend of ${primaryTrait.toLowerCase()} and ${secondaryTrait.toLowerCase()}... *adjusts to this unique combination*`;
-        } else {
-          const currentEmotion = intensity > 50 ? emotion.primary : emotion.opposite;
-          emotionDescription = currentEmotion;
-          reactionText = getEmotionReaction(emotion.id, intensity, currentEmotion);
-        }
-      } else {
-        const currentEmotion = intensity > 50 ? emotion.primary : emotion.opposite;
-        emotionDescription = currentEmotion;
-        reactionText = getEmotionReaction(emotion.id, intensity, currentEmotion);
-      }
-      
-      setWheelState(prev => ({
-        ...prev,
-        selectedEmotion: emotion.id,
-        intensity,
-        elizaReaction: reactionText
-      }));
-    }
+    // Update cursor position
+    setWheelState(prev => ({
+      ...prev,
+      cursorPosition: { x, y }
+    }));
+    
+    // Determine which emotion to show based on intensity
+    const currentEmotion = intensity > 50 ? emotion.primary : emotion.opposite;
+    const reactionText = getEmotionReaction(emotion.id, intensity, currentEmotion);
+    
+    setWheelState(prev => ({
+      ...prev,
+      selectedEmotion: emotion.id,
+      intensity,
+      elizaReaction: reactionText
+    }));
   };
 
   const resetWheel = () => {
@@ -96,7 +71,8 @@ const EmotionColorWheel = () => {
       intensity: 50,
       elizaReaction: "Back to my baseline essence. Ready for your touch again.",
       isLocked: false,
-      isDragging: false
+      isDragging: false,
+      cursorPosition: null
     });
   };
 
@@ -133,6 +109,7 @@ const EmotionColorWheel = () => {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseLeave}
+            cursorPosition={wheelState.cursorPosition}
           />
           
           <WheelControls
