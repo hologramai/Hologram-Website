@@ -1,11 +1,12 @@
 import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { WheelState } from "./wheel/types";
-import { emotionPairs, getEmotionReaction } from "./wheel/emotionData";
-import { calculateWheelPosition } from "./wheel/wheelUtils";
-import EmotionWheel from "./wheel/EmotionWheel";
+import { WheelState } from "./EmotionWheel/types";
+import { emotionPairs, getEmotionReaction } from "./EmotionWheel/constants";
+import { calculateWheelPosition } from "./EmotionWheel/utils";
+import EmotionWheel from "./EmotionWheel/EmotionWheel";
 import ElizaAvatar from "./wheel/ElizaAvatar";
 import WheelControls from "./wheel/WheelControls";
+
 
 const EmotionColorWheel = () => {
   const [wheelState, setWheelState] = useState<WheelState>({

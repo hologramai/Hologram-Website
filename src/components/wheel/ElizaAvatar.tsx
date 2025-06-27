@@ -15,8 +15,8 @@ const ElizaAvatar: React.FC<ElizaAvatarProps> = ({ elizaReaction }) => {
         />
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-400/20 to-purple-400/20"></div>
       </div>
-      <div className="mt-4 p-4 bg-pink-50 rounded-lg max-w-md mx-auto">
-        <p className="text-sm italic text-gray-700">"{elizaReaction}"</p>
+      <div className="mt-4 mb-6 p-4 bg-pink-50 rounded-lg w-full max-w-lg mx-auto min-h-[68px] flex items-center justify-center">
+        <p className="text-sm italic text-gray-700 text-center">{elizaReaction}</p>
       </div>
     </div>
   );
