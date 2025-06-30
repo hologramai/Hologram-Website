@@ -8,10 +8,10 @@ const MeetEliza = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   const wallpapers = [
-    "/public/image/wallpaper3.png",
-    "/public/image/wallpaper4.png",
-    "/public/image/wallpaper5.png",
-    "/public/image/wallpaper6.png"
+    "/image/wallpaper3.png",
+    "/image/wallpaper4.png",
+    "/image/wallpaper5.png",
+    "/image/wallpaper6.png"
   ];
 
   const toggleMute = () => {
@@ -95,6 +95,11 @@ const MeetEliza = () => {
                     src={wallpaper}
                     alt={`Eliza AI ${index + 1}`}
                     className={`slideshow-image ${index === currentSlide ? 'active' : ''}`}
+                    onError={(e) => {
+                      console.error(`Failed to load image: ${wallpaper}`);
+                      // Fallback to a placeholder or hide the broken image
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                 ))}
                 
