@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import MeetEliza from "./index_pages/MeetEliza";
 import CraftHerSoul from "./index_pages/CraftHerSoul";
 import WhyElizaTranscends from "./index_pages/WhyElizaTranscends";
@@ -31,6 +32,9 @@ const Index = () => {
       <div className="section-container">
         <NotPerfect />
       </div>
+      
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 };
