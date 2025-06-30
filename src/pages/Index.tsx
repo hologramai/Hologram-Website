@@ -7,13 +7,30 @@ import NotPerfect from "./index_pages/NotPerfect";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <MeetEliza />
-      <CraftHerSoul />
-      <WhyElizaTranscends />
-      <TraitLexicon />
-      <HowSheSpeaks />
-      <NotPerfect />
+    <div className="min-h-screen relative">
+      <div className="section-container">
+        <MeetEliza />
+      </div>
+      
+      <div className="section-container">
+        <CraftHerSoul />
+      </div>
+      
+      <div className="section-container">
+        <WhyElizaTranscends />
+      </div>
+      
+      <div className="section-container">
+        <TraitLexicon />
+      </div>
+      
+      <div className="section-container">
+        <HowSheSpeaks />
+      </div>
+      
+      <div className="section-container">
+        <NotPerfect />
+      </div>
     </div>
   );
 };
