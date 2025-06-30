@@ -1,0 +1,52 @@
+/* Eliza Component Styles */
+.eliza-gradient-text {
+  background: linear-gradient(135deg, hsl(var(--eliza-primary)), hsl(var(--eliza-accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.eliza-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 182, 193, 0.3);
+  box-shadow: 0 8px 32px rgba(219, 39, 119, 0.1);
+}
+
+.eliza-button {
+  background: linear-gradient(135deg, hsl(var(--eliza-primary)), hsl(var(--eliza-accent)));
+  transition: all 0.3s ease;
+}
+
+.eliza-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(219, 39, 119, 0.2);
+}
+
+/* Section transition effects */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.5), transparent);
+  z-index: 10;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.5), transparent);
+  z-index: 10;
+}

@@ -1,12 +1,14 @@
 import React from "react";
 import { EmotionPair } from "./types";
 import { WHEEL_SIZE } from "./constants";
-import AffectionLabel from "./Labels/AffectionLabel";
-import IndependenceLabel from "./Labels/IndependenceLabel";
-import SassLabel from "./Labels/SassLabel";
-import TactLabel from "./Labels/TactLabel";
-import BluntnessLabel from "./Labels/BluntnessLabel";
-import GentlenessLabel from "./Labels/GentlenessLabel";
+import AmbitionLabel from "./Labels/AmbitionLabel";
+import ContentmentLabel from "./Labels/ContentmentLabel";
+import PassionLabel from "./Labels/PassionLabel";
+import DetachmentLabel from "./Labels/DetachmentLabel";
+import VigilanceLabel from "./Labels/VigilanceLabel";
+import WonderLabel from "./Labels/WonderLabel";
+import ExplorationLabel from "./Labels/ExplorationLabel";
+import AdorationLabel from "./Labels/AdorationLabel";
 
 interface EmotionLabelsProps {
   emotionPairs: EmotionPair[];
@@ -40,18 +42,22 @@ const EmotionLabels: React.FC<EmotionLabelsProps> = ({
         const isSelected = selectedEmotion === emotion.id;
         
         switch(emotion.primary) {
-          case "Affection":
-            return <AffectionLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
-          case "Independence":
-            return <IndependenceLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
-          case "Sass":
-            return <SassLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
-          case "Tact":
-            return <TactLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
-          case "Bluntness":
-            return <BluntnessLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
-          case "Gentleness":
-            return <GentlenessLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Ambition":
+            return <AmbitionLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Contentment":
+            return <ContentmentLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Passion":
+            return <PassionLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Detachment":
+            return <DetachmentLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Vigilance":
+            return <VigilanceLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Wonder":
+            return <WonderLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Exploration":
+            return <ExplorationLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
+          case "Adoration":
+            return <AdorationLabel key={emotion.id} x={position.x} y={position.y} isSelected={isSelected} intensity={intensity} />;
           default:
             return null;
         }

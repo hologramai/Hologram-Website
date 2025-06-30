@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EmotionPair } from "./types";
-import { WHEEL_SIZE } from "./constants";
+import { WHEEL_SIZE, createSmoothGradient } from "./constants";
 import EmotionLabels from "./EmotionLabels";
 import ShimmerEffect from "./ShimmerEffect";
 import CursorIndicator from "./CursorIndicator";
@@ -44,23 +44,6 @@ const EmotionWheel: React.FC<EmotionWheelProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  const createGradientStops = () => {
-    const stops: string[] = [];
-    const sortedEmotions = [...emotionPairs].sort((a, b) => a.angle - b.angle);
-    
-    sortedEmotions.forEach((emotion, index) => {
-      const nextEmotion = sortedEmotions[(index + 1) % sortedEmotions.length];
-      const currentAngle = emotion.angle;
-      const nextAngle = index === sortedEmotions.length - 1 ? 360 : nextEmotion.angle;
-      
-      stops.push(`${emotion.color} ${currentAngle}deg`);
-      const midAngle = (currentAngle + nextAngle) / 2;
-      stops.push(`${emotion.color} ${midAngle}deg`);
-    });
-    
-    return stops.join(', ');
-  };
-
   return (
     <div className="flex justify-center mb-[10%]">
       <div className="relative" style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}>
@@ -72,8 +55,8 @@ const EmotionWheel: React.FC<EmotionWheelProps> = ({
           onMouseUp={onMouseUp}
           onMouseLeave={onMouseLeave}
           style={{
-            background: `conic-gradient(from 0deg, ${createGradientStops()})`,
-            filter: isLocked ? 'grayscale(50%)' : 'none',
+            background: `conic-gradient(from 0deg, ${createSmoothGradient(emotionPairs)})`,
+            filter: isLocked ? 'grayscale(30%)' : 'none',
             transition: 'filter 0.3s ease'
           }}
         >

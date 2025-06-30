@@ -54,8 +54,8 @@ const EmotionColorWheel = () => {
       cursorPosition: { x, y }
     }));
     
-    // Determine which emotion to show based on intensity
-    const currentEmotion = intensity > 50 ? emotion.primary : emotion.opposite;
+    // Always use the primary emotion (no opposites)
+    const currentEmotion = emotion.primary;
     const reactionText = getEmotionReaction(emotion.id, intensity, currentEmotion);
     
     setWheelState(prev => ({

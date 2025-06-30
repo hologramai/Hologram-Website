@@ -1,14 +1,13 @@
 import React from "react";
 
-interface SassLabelProps {
+interface WonderLabelProps {
   x: number;
   y: number;
   isSelected: boolean;
   intensity: number;
 }
 
-const SassLabel: React.FC<SassLabelProps> = ({ x, y, isSelected, intensity }) => {
-  // No vertical adjustment needed - aligned with Tact
+const WonderLabel: React.FC<WonderLabelProps> = ({ x, y, isSelected, intensity }) => {
   return (
     <div
       className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
@@ -18,15 +17,15 @@ const SassLabel: React.FC<SassLabelProps> = ({ x, y, isSelected, intensity }) =>
       }}
     >
       <div
-        className={`text-sm font-bold text-white bg-gray-700 px-3 py-1.5 rounded-lg whitespace-nowrap ${
-          isSelected && intensity > 50 ? 'ring-2 ring-white scale-110 bg-gray-900' : ''
+        className={`text-sm font-bold text-white bg-pink-500 px-3 py-1.5 rounded-lg whitespace-nowrap ${
+          isSelected && intensity <= 50 ? 'ring-2 ring-white scale-110 bg-pink-700' : ''
         }`}
         style={{ transition: 'all 0.2s ease' }}
       >
-        Sass
+        Wonder
       </div>
     </div>
   );
 };
 
-export default SassLabel;
+export default WonderLabel;

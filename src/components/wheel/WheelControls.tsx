@@ -8,7 +8,6 @@ interface WheelControlsProps {
   emotionPairs: Array<{
     id: string;
     primary: string;
-    opposite: string;
   }>;
   isLocked: boolean;
   onLockSettings: () => void;
@@ -30,10 +29,7 @@ const WheelControls: React.FC<WheelControlsProps> = ({
         <div className="text-center mb-6">
           <div className="inline-block bg-white rounded-lg p-4 shadow-md">
             <p className="text-lg font-semibold text-gray-800">
-              {intensity > 50 
-                ? emotionPairs.find(e => e.id === selectedEmotion)?.primary 
-                : emotionPairs.find(e => e.id === selectedEmotion)?.opposite
-              }
+              {emotionPairs.find(e => e.id === selectedEmotion)?.primary}
             </p>
             <p className="text-sm text-gray-600">Intensity: {intensity}%</p>
           </div>

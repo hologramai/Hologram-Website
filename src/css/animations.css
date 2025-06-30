@@ -1,0 +1,68 @@
+/* Animation Styles */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(219, 39, 119, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(219, 39, 119, 0.6); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(100%) translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Enhanced Star Field Animation */
+.star-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 182, 193, 0.8);
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.8),
+              0 0 20px rgba(255, 20, 147, 0.6);
+  animation: twinkle linear infinite, float linear infinite;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(0.5); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.5); 
+  }
+}
+
+@keyframes float {
+  0% { 
+    transform: translateY(100vh) rotate(0deg); 
+  }
+  100% { 
+    transform: translateY(-100vh) rotate(360deg); 
+  }
+}
