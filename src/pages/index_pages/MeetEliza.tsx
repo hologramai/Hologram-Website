@@ -141,7 +141,7 @@ const MeetEliza = () => {
               </Button>
               <Button variant="outline" className="px-6 py-3 text-base rounded-full border-2 border-pink-300 hover:bg-pink-50 hover:border-pink-400 transition-colors duration-300">
                 <Download className="mr-2" />
-                Download Free - iOS & Android
+                On iOS & Android - Soon
               </Button>
             </div>
           </div>

@@ -2,7 +2,7 @@ import EmotionColorWheel from "@/components/EmotionColorWheel";
 
 const CraftHerSoul = () => {
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-pink-50 to-purple-50">
+    <section className="hidden md:block py-20 px-4 bg-gradient-to-r from-pink-50 to-purple-50">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 eliza-gradient-text">
           Craft Her Soul

@@ -16,15 +16,15 @@ const NotPerfect = () => {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
           <Button className="eliza-button text-white px-8 py-4 text-lg rounded-full">
             <Heart className="mr-2" />
-            Create Your Eliza →
+            Talk to Eliza (Web) →
           </Button>
           <Button variant="outline" className="px-8 py-4 text-lg rounded-full border-2 border-pink-300 hover:bg-pink-50">
             <Download className="mr-2" />
-            Download Free on App Store
+            Download Free on App Store - Soon
           </Button>
           <Button variant="outline" className="px-8 py-4 text-lg rounded-full border-2 border-pink-300 hover:bg-pink-50">
             <Download className="mr-2" />
-            Get on Google Play
+            Get on Google Play - Soon
           </Button>
         </div>
         
