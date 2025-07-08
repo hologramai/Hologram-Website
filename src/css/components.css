@@ -7,10 +7,160 @@
 }
 
 .eliza-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 182, 193, 0.3);
-  box-shadow: 0 8px 32px rgba(219, 39, 119, 0.1);
+  /* Glassmorphism base */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  
+  /* Enhanced borders */
+  border: 2px solid rgba(255, 182, 193, 0.4);
+  border-radius: 16px;
+  
+  /* Deep drop shadows for elevation */
+  box-shadow: 
+    0 20px 40px rgba(255, 105, 180, 0.15),
+    0 8px 16px rgba(219, 39, 119, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  
+  /* Subtle overlay for depth */
+  position: relative;
+  isolation: isolate;
+}
+
+.eliza-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 182, 193, 0.6) 0%, 
+    rgba(255, 105, 180, 0.3) 50%, 
+    rgba(219, 39, 119, 0.4) 100%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  z-index: -1;
+}
+
+.eliza-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(
+    145deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    transparent 50%, 
+    rgba(255, 182, 193, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Enhanced hover state */
+.eliza-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 30px 60px rgba(255, 105, 180, 0.2),
+    0 12px 24px rgba(219, 39, 119, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 182, 193, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal/Overlay backdrop effect */
+.eliza-card-modal {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Enhanced Modal/Dialog Glassmorphism */
+.eliza-modal {
+  /* Ultra-modern glassmorphism */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  
+  /* Material Design inspired elevation */
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  border-radius: 20px;
+  
+  /* Deep shadows for maximum elevation */
+  box-shadow: 
+    0 32px 64px rgba(255, 105, 180, 0.25),
+    0 16px 32px rgba(219, 39, 119, 0.15),
+    0 8px 16px rgba(255, 182, 193, 0.1),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(255, 182, 193, 0.2);
+  
+  /* Neumorphism-inspired depth */
+  position: relative;
+  isolation: isolate;
+}
+
+.eliza-modal::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 182, 193, 0.6) 25%,
+    rgba(255, 105, 180, 0.4) 50%, 
+    rgba(219, 39, 119, 0.5) 75%,
+    rgba(255, 182, 193, 0.7) 100%
+  );
+  z-index: -1;
+  filter: blur(1px);
+}
+
+.eliza-modal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    155deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    transparent 30%, 
+    rgba(255, 182, 193, 0.08) 70%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Enhanced overlay for modals */
+.eliza-modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px) brightness(0.7);
+  -webkit-backdrop-filter: blur(8px) brightness(0.7);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal content enhancement */
+.eliza-modal-content {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.eliza-modal-content .text-gray-800 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.eliza-modal-content .text-gray-600 {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .eliza-button {

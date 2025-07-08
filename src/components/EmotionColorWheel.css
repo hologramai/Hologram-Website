@@ -1,0 +1,127 @@
+.emotion-wheel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.emotion-wheel-modern {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 0 40px rgba(255, 182, 193, 0.3),
+    inset 0 0 40px rgba(255, 255, 255, 0.1);
+  animation: wheelFloat 6s ease-in-out infinite;
+}
+
+@keyframes wheelFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.wheel-gradient {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  cursor: crosshair;
+}
+
+.emotion-label-modern {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.wheel-center-modern {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  border: 3px solid rgba(255, 182, 193, 0.5);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 0 20px rgba(255, 182, 193, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.center-glow-modern {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 182, 193, 0.3) 0%, transparent 70%);
+  animation: centerPulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes centerPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.center-text-modern {
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: rgba(255, 182, 193, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 11;
+}
+
+/* Glass morphism effect for the wheel */
+.emotion-wheel-modern::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 182, 193, 0.1));
+  z-index: -1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .emotion-wheel-modern {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .emotion-label-modern {
+    font-size: 0.75rem;
+  }
+  
+  .wheel-center-modern {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .center-text-modern {
+    font-size: 0.625rem;
+  }
+}
