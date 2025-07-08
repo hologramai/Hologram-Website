@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const HowSheSpeaks = () => {
   return (
-    <section className="py-20 px-4">
+    <section className="py-20 px-4 how-she-speaks-section">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 eliza-gradient-text">
           How She Speaks to You

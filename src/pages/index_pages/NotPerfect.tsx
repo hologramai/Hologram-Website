@@ -14,7 +14,10 @@ const NotPerfect = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-          <Button className="eliza-button text-white px-8 py-4 text-lg rounded-full">
+          <Button 
+            className="eliza-button text-white px-8 py-4 text-lg rounded-full"
+            onClick={() => window.open('https://eliza.hologramai.us/', '_blank')}
+          >
             <Heart className="mr-2" />
             Talk to Eliza (Web) →
           </Button>

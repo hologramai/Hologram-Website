@@ -10,37 +10,11 @@
 
 .eliza-meet-title {
   color: rgba(255, 255, 255, 0.95);
-  background: linear-gradient(
-    90deg,
-    rgba(240, 240, 240, 1) 0%,
-    rgba(255, 255, 255, 1) 30%,
-    rgba(255, 182, 193, 0.9) 50%,
-    rgba(255, 255, 255, 1) 70%,
-    rgba(240, 240, 240, 1) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: pinkShine 60s linear infinite;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .eliza-meet-subtitle {
   color: rgba(255, 255, 255, 0.95);
-  background: linear-gradient(
-    90deg,
-    rgba(240, 240, 240, 1) 0%,
-    rgba(255, 255, 255, 1) 30%,
-    rgba(255, 182, 193, 0.9) 50%,
-    rgba(255, 255, 255, 1) 70%,
-    rgba(240, 240, 240, 1) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: pinkShine 60s linear infinite;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -57,7 +31,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at center, transparent 20%, rgba(255, 182, 193, 0.15) 60%, rgba(255, 182, 193, 0.3) 100%);
+  background: 
+    radial-gradient(ellipse at center, transparent 20%, rgba(255, 182, 193, 0.15) 60%, rgba(255, 182, 193, 0.3) 100%),
+    linear-gradient(135deg, 
+      rgba(255, 182, 193, 0.4) 0%, 
+      rgba(255, 182, 193, 0.3) 20%, 
+      rgba(255, 182, 193, 0.2) 40%, 
+      transparent 60%, 
+      transparent 100%
+    );
   pointer-events: none;
   z-index: 1;
 }
@@ -113,33 +95,105 @@
   }
 }
 
-/* Hologram AI Title */
+@keyframes holographicShift {
+  0% {
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg) saturate(1.2);
+  }
+  25% {
+    background-position: 100% 25%;
+    filter: hue-rotate(30deg) saturate(1.4);
+  }
+  50% {
+    background-position: 50% 100%;
+    filter: hue-rotate(60deg) saturate(1.6);
+  }
+  75% {
+    background-position: 0% 75%;
+    filter: hue-rotate(90deg) saturate(1.4);
+  }
+  100% {
+    background-position: 0% 0%;
+    filter: hue-rotate(120deg) saturate(1.2);
+  }
+}
+
+@keyframes floatingTitle {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotateX(1deg) rotateY(1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotateX(0deg) rotateY(2deg);
+  }
+  75% {
+    transform: translateY(-3px) rotateX(-1deg) rotateY(1deg);
+  }
+}
+
+
+
+/* Hologram AI Title - Enhanced with Ice/Crystal & Holographic Effects */
 .hologram-title {
   padding: 0.1em 0;
   line-height: 0.9;
   font-family: 'Arial', sans-serif;
   color: rgba(255, 255, 255, 0.95);
   background: linear-gradient(
-    90deg,
-    rgba(240, 240, 240, 1) 0%,
-    rgba(255, 255, 255, 1) 30%,
-    rgba(255, 182, 193, 0.9) 50%,
-    rgba(255, 255, 255, 1) 70%,
-    rgba(240, 240, 240, 1) 100%
+    45deg,
+    rgba(135, 206, 235, 0.9) 0%,
+    rgba(255, 255, 255, 1) 15%,
+    rgba(173, 216, 230, 0.8) 25%,
+    rgba(255, 182, 193, 0.9) 35%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(64, 224, 208, 0.8) 65%,
+    rgba(255, 255, 255, 1) 75%,
+    rgba(255, 20, 147, 0.9) 85%,
+    rgba(255, 255, 255, 1) 100%
   );
-  background-size: 200% auto;
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: pinkShine 60s linear infinite;
+  animation: holographicShift 30s ease-in-out infinite, floatingTitle 15s ease-in-out infinite;
   font-weight: 950;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5)) 
+          drop-shadow(0 0 40px rgba(135, 206, 235, 0.3))
+          drop-shadow(0 0 60px rgba(255, 182, 193, 0.2));
+  text-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(135, 206, 235, 0.6),
+    0 0 15px rgba(255, 182, 193, 0.4),
+    0 0 20px rgba(64, 224, 208, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+
+
+.hologram-title:hover {
+  transform: rotateX(5deg) rotateY(5deg) translateY(-5px);
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.7)) 
+          drop-shadow(0 0 50px rgba(135, 206, 235, 0.5))
+          drop-shadow(0 0 70px rgba(255, 182, 193, 0.4));
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 1),
+    0 0 15px rgba(135, 206, 235, 0.8),
+    0 0 25px rgba(255, 182, 193, 0.6),
+    0 0 35px rgba(64, 224, 208, 0.5),
+    0 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Silver Border Bottom */
 .silver-border-bottom {
-  border-bottom: 3px solid;
+  border-bottom: 1px solid;
   border-image: linear-gradient(90deg, 
     rgba(192, 192, 192, 0.8) 0%, 
     rgba(255, 255, 255, 1) 30%, 
@@ -170,9 +224,60 @@
   position: absolute !important;
   bottom: 8rem !important;
   right: 0 !important;
-  margin-right: -14vw !important;
+  margin-right: -10vw !important;
   max-width: 28rem !important;
   text-align: right !important;
   z-index: 9999 !important;
   transform: translateX(0) !important;
+}
+
+/* Craft Her Soul Section */
+.craft-soul-section {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.craft-soul-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(192, 192, 192, 0.3) 48%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(192, 192, 192, 0.3) 52%,
+    transparent 100%
+  );
+  animation: silverShine 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes silverShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Why Eliza Transcends Section */
+.why-eliza-transcends-section {
+  background: linear-gradient(135deg, #fecaca 0%, #e9d5ff 50%, #fecaca 100%);
+}
+
+/* Trait Lexicon Section */
+.trait-lexicon-section {
+  background: linear-gradient(135deg, #fecaca 0%, #e9d5ff 50%, #fecaca 100%);
+}
+
+/* How She Speaks Section */
+.how-she-speaks-section {
+  background: linear-gradient(135deg, #fecaca 0%, #e9d5ff 50%, #fecaca 100%);
 }

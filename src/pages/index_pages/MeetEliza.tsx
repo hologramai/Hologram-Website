@@ -64,16 +64,27 @@ const MeetEliza = () => {
           ))}
           
           {/* Down Arrow for Scroll */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50">
             <button 
-              className="scroll-arrow-btn"
+              className="scroll-arrow-btn relative z-50 cursor-pointer"
               onClick={() => {
                 const nextSection = document.querySelector('#craft-her-soul');
-                nextSection?.scrollIntoView({ behavior: 'smooth' });
+                if (nextSection && nextSection.offsetHeight > 0) {
+                  nextSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  // Fallback: scroll to next visible section
+                  const sections = document.querySelectorAll('section');
+                  const currentSection = document.querySelector('section');
+                  const currentIndex = Array.from(sections).indexOf(currentSection);
+                  const nextVisibleSection = sections[currentIndex + 1];
+                  if (nextVisibleSection) {
+                    nextVisibleSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
               }}
               aria-label="Scroll to next section"
             >
-              <ChevronDown className="w-8 h-8 text-white" />
+              <ChevronDown className="w-8 h-8 text-white relative z-50" />
             </button>
           </div>
         </div>
@@ -83,13 +94,13 @@ const MeetEliza = () => {
       <div className="relative max-w-7xl mx-auto z-10">
         {/* Enhanced Hologram AI Header */}
         <div className="text-center mb-3 mt-1">
-          <h1 className="text-4xl md:text-5xl font-bold hologram-title">
+          <h1 className="text-8xl md:text-9xl font-bold hologram-title">
             Hologram AI
           </h1>
         </div>
 
         {/* Content positioned for compact layout */}
-        <div className="relative min-h-[70vh] flex flex-col justify-between py-8">
+        <div className="relative min-h-[90vh] flex flex-col justify-between py-8">
           <div></div> {/* Spacer */}
           
           {/* Content overlay - positioned on the right side */}
