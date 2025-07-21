@@ -281,3 +281,67 @@
 .how-she-speaks-section {
   background: linear-gradient(135deg, #fecaca 0%, #e9d5ff 50%, #fecaca 100%);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Fix Hologram AI title for mobile */
+  .hologram-title {
+    font-size: 3.5rem !important;
+    letter-spacing: 0.05em;
+    padding: 0.2em 0.1em;
+  }
+  
+  /* Fix Meet Eliza content block for mobile */
+  .meet-eliza-content-block {
+    position: relative !important;
+    bottom: auto !important;
+    right: auto !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    padding: 1rem !important;
+    margin-top: 2rem !important;
+  }
+  
+  /* Adjust Meet Eliza title and subtitle for mobile */
+  .eliza-meet-title {
+    font-size: 2rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .eliza-meet-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  /* Fix eliza card padding for mobile */
+  .eliza-card {
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .eliza-card p {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Fix button layout for mobile */
+  .meet-eliza-content-block .flex {
+    width: 100% !important;
+  }
+  
+  .meet-eliza-content-block button {
+    width: 100% !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Hide down arrow on mobile */
+  .scroll-arrow-btn {
+    display: none !important;
+  }
+  
+  /* Adjust min-height for mobile */
+  .relative.min-h-\\[90vh\\] {
+    min-height: auto !important;
+  }
+}
